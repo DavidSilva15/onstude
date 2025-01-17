@@ -1,0 +1,324 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid #ddd;
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+td{
+    color: #252e3d;
+    font-size: 13px;
+}
+
+th {
+    background-color: #252e3d;
+    text-align: center;
+}
+
+tr{
+    /*background-color: #4b515c;*/
+    background-color: #fff;
+}
+
+#alunosTable{
+    font-size: 15px;
+}
+
+.tableAlunosBtnsContainer{
+    text-align: center;
+}
+
+.controleHeader{
+    padding: 10px 0;
+    border-bottom: 1px solid #252e3d;
+}
+
+.barraPesquisa{
+    width: 100%;
+    text-align: end;
+}
+
+#searchInput{
+    width: 40%;
+    padding: 10px;
+}
+
+#searchButton{
+    background: #33cc66;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 20px;
+}
+
+.controleHeader > p{
+    color: #252e3d;
+    font-size: 1.5em;
+}
+
+.tableNome{
+    width: 300px;
+}
+
+.tableHorario{
+    width: 100px;
+}
+
+.btnEditar,
+.btnExcluir{
+    padding: 5px;
+}
+
+.btnEditar > i,
+.btnExcluir > i{
+    font-size: 10px;
+}
+
+.btnEditar{
+    background: #fec600;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btnEditar:hover{
+    background-color: #e0b20e;
+}
+
+.btnExcluir{
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btnExcluir:hover{
+    background-color: #e60000;
+}
+
+.actions > button:nth-child(1){
+    background-color: #33cc66;
+}
+
+.actions > button:nth-child(1):hover{
+    background-color: #29af55;
+}
+
+.modal-overlay {
+    display: none; /* Começa oculto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo com opacidade */
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* Garantir que o overlay fique acima de outros elementos */
+}
+
+.modal {
+    display: block;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    transform: scale(0);
+    opacity: 0;
+    animation: modalScaleIn 0.5s ease forwards;
+}
+
+/* Botão de fechar */
+.modal button {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.modal button:hover {
+    background: #e60000;
+}
+
+/* Estilo para a imagem */
+.modal img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.modal > p{
+    margin-bottom: 20px;
+}
+
+/* Animação usando @keyframes */
+@keyframes modalScaleIn {
+    0% {
+        transform: scale(0); /* Tamanho inicial */
+        opacity: 0; /* Invisível no início */
+    }
+    100% {
+        transform: scale(1); /* Tamanho final */
+        opacity: 1; /* Totalmente visível */
+    }
+}
+
+.modal-content input,
+.modal-content select {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+}
+
+.modal-content button {
+    width: 48%;
+    padding: 8px;
+    margin-top: 10px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.controleHeader{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 30px 0px;
+}
+
+.classificacao > button{
+    background: #33cc66;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 20px;
+}
+
+.classificacao > button:hover{
+    background-color: #29af55;
+}
+
+.menuRight{
+    width: 75%;
+    margin-left: -3%;
+}
+
+.container{
+    justify-content: end;
+}
+
+/*Modais para confirmação de registro e de exclusão de alunos-----------------------------------------*/
+.modal-success, .modal-confirmation {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    margin: auto;
+}
+
+.modal-success{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-success p, .modal-confirmation p {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.modal-success button, .modal-confirmation button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal-success button {
+    background-color: #33cc66;
+    color: #fff;
+}
+
+.modal-success button:hover {
+    background-color: #29af55;
+    color: #fff;
+}
+
+.modal-confirmation .actions button:first-child {
+    background-color: #33cc66;
+    color: #fff;
+}
+
+.modal-confirmation .actions button:first-child:hover {
+    background-color: #29af55;
+}
+
+.modal-confirmation .actions button:last-child {
+    background-color: #ff4d4d;
+    color: #fff;
+}
+
+.modal-confirmation .actions button:last-child:hover {
+    background-color: #e60000;
+}
+
+.actions{
+    display: flex;
+    justify-content: center;
+}
+
+.menu-icon{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+@media screen and (max-width: 1124px) {
+    .menuRight{
+        width: 100%;
+    }
+
+    .classificacao{
+        display: flex;
+        align-items: center;
+    }
+
+    .classificacao > button{
+        margin-left: 10px;
+    }
+
+    .controleHeader{
+        display: block;
+    }
+}

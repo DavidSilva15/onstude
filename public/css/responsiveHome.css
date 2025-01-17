@@ -1,0 +1,14 @@
+@media screen and (max-width: 1124px) {
+    .curso,
+    .cursoDetails{
+        width: 100%;
+    }
+    
+    .menuLeft{
+        display: none;
+    }
+
+    .container{
+        margin-left: 0;
+    }
+}
