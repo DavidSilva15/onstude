@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="./img/onstudy.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        /* Reset de estilo básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilo do body */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ebebeb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        /* Contêiner do formulário */
+        .login-container {
+            background-color: #252e3d;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            background-color: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #fec600;
+            border: none;
+            border-radius: 4px;
+            color: #252e3d;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+        }
+
+        /* Estilos de foco */
+        input:focus,
+        button:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .user-container,
+        .password-container {
+            display: flex;
+            flex-direction: column;
+            text-align: start;
+        }
+
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            margin-top: 30px;
+            gap: 30px;
+        }
+
+        .forget-password>a,
+        .cadastrese>a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .forget-password>a:hover,
+        .cadastrese>a:hover {
+            text-decoration: underline;
+        }
+
+        .link-cadastre {
+            color: #fff;
+            font: 600;
+        }
+
+        @media screen and (max-width: 1124px) {
+            .login-container {
+                width: 90%;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="logo-container">
+            <img src="./img/logo.png" alt="">
+        </div>
+
+        <form action="/login" method="POST">
+            <div class="user-container">
+                <label for="nome">Email:</label>
+                <input type="text" id="nome" name="nome" required><br>
+            </div>
+
+            <div class="password-container">
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha" required><br>
+            </div>
+
+            <button type="submit">Entrar</button>
+
+            <div class="links-container">
+                <div class="forget-password">
+                    <a href="#">Esqueci minha senha :(</a>
+                </div>
+                <div class="cadastrese">
+                    <p>Não tem uma conta? <a class="link-cadastre" href="#">Cadastre-se</a></p>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
