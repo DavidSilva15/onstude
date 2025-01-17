@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../img/onstudy.ico" type="image/x-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <title>Gerir contas</title>
+    <style>
+        /* Reset geral */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1,
+        h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        /* Estilos do formulário */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+        }
+
+        label {
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        button[type="submit"] {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+
+        /* Estilos para a tabela */
+        table {
+            width: 80%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #252e3d;
+            color: white;
+        }
+
+        td {
+            background-color: #fff;
+        }
+
+        button {
+            padding: 8px 12px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-confirm {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .btn-cancel {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        /* Estilos para os modais */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            width: 400px;
+        }
+
+        .modal button {
+            width: 100px;
+            margin-top: 20px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .custom-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .custom-modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            width: 500px;
+            transform: scale(0.9);
+            /* Inicialmente um pouco menor */
+            animation: scaleUp 0.3s ease-out forwards;
+            /* Aparece com um efeito de zoom */
+        }
+
+        .inputs {
+            display: flex;
+            align-items: center;
+        }
+
+        .userInputs {
+            display: block;
+        }
+
+        .btnsRegister {
+            margin-top: 20px;
+        }
+
+        @keyframes scaleUp {
+            0% {
+                transform: scale(0.9);
+                /* Começa um pouco menor */
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                /* Finaliza com o tamanho original */
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .custom-modal .btn-confirm {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .custom-modal .btn-cancel {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Animação de fechamento */
+        .custom-modal.hide .custom-modal-content {
+            animation: scaleDown 0.3s ease-in forwards;
+            /* Efeito de redução ao fechar */
+        }
+
+        .header {
+            min-width: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .title {
+            width: 80%;
+            text-align: start;
+            font-size: 30px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #2c3e50;
+        }
+
+        @keyframes scaleDown {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nome {
+            width: 70%;
+        }
+
+        .btnRegisterHeader {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        /* Estilo do modal */
+        .modal-register-success {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-register-success .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .modal-register-success .modal-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .modal-register-success .modal-button:hover {
+            background-color: #45a049;
+        }
+
+        /* Estilo para o modal de sucesso */
+        .modal-edit-success {
+            display: none;
+            /* Começa escondido */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Fundo semitransparente */
+            padding-top: 60px;
+        }
+
+        .modal-edit-success-content {
+            width: 50%;
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btnEditModalRegister {
+            background-color: #fec600;
+            color: #fff;
+        }
+
+        .btnDeleteModalRegister {
+            background-color: #ff4d4d;
+            color: #fff;
+        }
+
+        .filtro-container {
+            width: 80%;
+            display: flex;
+            align-items: center;
+        }
+
+        .header {
+            margin-bottom: 20px;
+        }
+
+        .filtro-input {
+            width: 50%;
+        }
+
+        /* Responsividade */
+        @media screen and (max-width: 600px) {
+            form {
+                width: 100%;
+                padding: 15px;
+            }
+
+            table {
+                width: 100%;
+                font-size: 14px;
+            }
+
+            button[type="submit"] {
+                font-size: 14px;
+            }
+
+            .modal-content {
+                width: 90%;
+            }
+
+            .title {
+                width: 100%;
+            }
+
+            .header {
+                width: 100%;
+            }
+
+            .modal-edit-success-content {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title">
+        <p>Gerenciamento de contas OnStudy</p>
+    </div>
+
+    <div class="filtro-container">
+        <div class="filtro-input">
+            <label for="nameFilter">Pesquisa por nome: </label>
+            <input type="text" id="nameFilter" style="width: 100%;">
+        </div>
+        <div class="filtro-btns">
+            <button id="filterButton" onclick="filterUsers()">Filtrar</button>
+            <button id="clearButton" onclick="clearFilter()">Limpar</button>
+        </div>
+    </div>
+
+    <div class="header">
+        <p>Alunos cadastrados</p>
+        <div class="btns">
+            <button class="btnRegisterHeader" onclick="showModalRegister('registerModal')"><i style="margin-right: 5px;"
+                    class="fas fa-user-plus"></i>Cadastrar Aluno</button>
+            <a href="/login.html"><button>Ir para Login</button></a>
+            <a href="./controle-alunos/controle-alunos.html"><button>Gerir alunos</button></a>
+        </div>
+    </div>
+
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th class="nome">Email</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="user-list"></tbody>
+        </table>
+    </div>
+
+    <!-- Modal de Registro -->
+    <div id="registerModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <p style="margin-bottom: 30px; font-size: 25px;">Cadastrar aluno</p>
+            <form action="/register" method="POST">
+
+                <div class="userInputs inputs">
+                    <input type="text" name="nome" placeholder="Email @onstudy" required>
+                    <input type="password" name="senha" placeholder="Senha" required>
+                </div>
+
+                <p style="margin-bottom: 10px;">Selecione os cursos:</p>
+                <hr>
+                <br>
+
+                <div class="introInputs inputs">
+                    <input type="checkbox" id="introducaoInformatica" name="skills" value="introducaoInformatica">
+                    <label for="introducaoInformatica">Introdução à Informática</label><br>
+                </div>
+
+                <div class="winInputs inputs">
+                    <input type="checkbox" id="windows11" name="skills" value="windows11">
+                    <label for="windows11">Windows 11</label><br>
+                </div>
+
+                <div class="wordInputs inputs">
+                    <input type="checkbox" id="word" name="skills" value="word">
+                    <label for="word">Word</label><br>
+                </div>
+
+                <div class="excelInputs inputs">
+                    <input type="checkbox" id="excel" name="skills" value="excel">
+                    <label for="excel">Excel</label><br>
+                </div>
+
+                <div class="powerpointInputs inputs">
+                    <input type="checkbox" id="powerpoint" name="skills" value="powerpoint">
+                    <label for="powerpoint">PowerPoint</label><br>
+                </div>
+
+                <div class="depPessoalInputs inputs">
+                    <input type="checkbox" id="depPessoal" name="skills" value="depPessoal">
+                    <label for="depPessoal">Departamento Pessoal</label><br>
+                </div>
+
+                <div class="escritaFiscalInputs inputs">
+                    <input type="checkbox" id="escritaFiscal" name="skills" value="escritaFiscal">
+                    <label for="escritaFiscal">Escrita Fiscal</label><br>
+                </div>
+
+                <div class="admFinanceiraInputs inputs">
+                    <input type="checkbox" id="admFinanceira" name="admFinanceira" value="true">
+                    <label for="admFinanceira">Administração Financeira</label><br>
+                </div>
+
+                <div class="rotAdm1Inputs inputs">
+                    <input type="checkbox" id="rotAdm1" name="rotAdm1" value="true">
+                    <label for="rotAdm1">Rotina Administrativa 1</label><br>
+                </div>
+
+                <div class="rotAdm2Inputs inputs">
+                    <input type="checkbox" id="rotAdm2" name="rotAdm2" value="true">
+                    <label for="rotAdm2">Rotina Administrativa 2</label><br>
+                </div>
+
+                <div class="btnsRegister inputs">
+                    <button id="btnSubmit" type="submit">Registrar</button>
+                    <button type="button" onclick="closeModalRegister('registerModal')">Cancelar</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Modal de edição -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h2>Editar Usuário</h2>
+            <label for="edit-name">Novo Email:</label>
+            <input type="text" id="edit-name" required><br><br>
+
+            <label for="edit-password">Nova Senha:</label>
+            <input type="password" id="edit-password" required><br><br>
+
+            <button class="btn-confirm" onclick="saveEdit()">Salvar</button>
+            <button class="btn-cancel" onclick="closeModal('editModal')">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- Modal de confirmação de exclusão -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <img style="padding: 20px 0;"
+                src="https://static.vecteezy.com/system/resources/previews/017/178/327/non_2x/warning-hazard-sign-on-transparent-background-free-png.png"
+                alt="" width="150px">
+            <h2>Confirmar Exclusão</h2>
+            <p>Tem certeza de que deseja excluir este usuário?</p>
+            <button class="btn-confirm" onclick="deleteUser()">Sim</button>
+            <button class="btn-cancel" onclick="closeModal('deleteModal')">Não</button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="successModal" class="modal-register-success">
+        <div class="modal-content">
+            <img style="padding: 20px 0;" src="https://www.pngall.com/wp-content/uploads/13/Check-PNG-File.png" alt=""
+                width="150px">
+            <h2>Cadastro realizado com sucesso!</h2>
+            <br>
+            <button class="modal-button" onclick="closeModalSuccess()">Fechar</button>
+        </div>
+    </div>
+
+    <!-- Modal de Sucesso (atualizado) -->
+    <div id="modal-edit-success" class="modal-edit-success" style="display: none;">
+        <div class="modal-edit-success-content">
+            <img style="padding: 20px 0;" src="https://www.pngall.com/wp-content/uploads/13/Check-PNG-File.png" alt=""
+                width="150px">
+            <p>Usuário atualizado com sucesso!</p>
+            <button onclick="closeEditSuccessModal()">Fechar</button>
+        </div>
+    </div>
+
+    <script src="./js/register.js"></script>
+</body>
+
+</html>
